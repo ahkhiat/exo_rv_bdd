@@ -6,10 +6,12 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.devid_academy.exo_rv_bdd.Network.deleteCountry
 import com.devid_academy.exo_rv_bdd.Network.getRemoteCountries
 
 class RecyclerViewRemoteActivity : AppCompatActivity() {
@@ -37,32 +39,35 @@ class RecyclerViewRemoteActivity : AppCompatActivity() {
                 }
             }
 
-        countryAdapter = CountryAdapter { country ->
-            val intent = Intent(this, EditRemoteActivity::class.java)
-                .putExtra("country", country)
-            registerEditCountry.launch(intent)
-        }
+        countryAdapter = CountryAdapter(
 
+            onItemClick = { country ->
+                val intent = Intent(this, EditRemoteActivity::class.java)
+                    .putExtra("country", country)
+                registerEditCountry.launch(intent)
+            },
+
+            onItemDelete = { country ->
+                deleteCountry(country.id) { success ->
+                    if (success) {
+                        Toast.makeText(this, "${country.nom} supprimé", Toast.LENGTH_SHORT).show()
+                        refresh()
+                    }
+                }
+            }
+        )
 
         recyclerView = findViewById<RecyclerView>(R.id.rv_country).apply {
             layoutManager = LinearLayoutManager(this@RecyclerViewRemoteActivity)
             adapter = countryAdapter
         }
 
-
-
         findViewById<Button>(R.id.rva_btn_add_country).setOnClickListener {
             registerCreateCountry.launch(Intent(this, CreateActivity::class.java))
-
-
-
         }
-
 
     refresh()
     }
-
-
     private fun refresh() {
         progressBar.visibility = View.VISIBLE
         getRemoteCountries {
@@ -71,6 +76,5 @@ class RecyclerViewRemoteActivity : AppCompatActivity() {
             progressBar.visibility = View.GONE
             Log.d("DEBUG", "Nombre de pays récupérés : ${countryAdapter.itemCount}")
         }
-
     }
 }

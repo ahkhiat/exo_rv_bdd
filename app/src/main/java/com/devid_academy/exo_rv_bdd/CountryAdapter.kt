@@ -3,6 +3,7 @@ package com.devid_academy.exo_rv_bdd
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -10,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.devid_academy.exo_rv_bdd.DTO.CountryDTO
 import com.squareup.picasso.Picasso
 
-class CountryAdapter(private val onItemClick: (CountryDTO) -> Unit) : RecyclerView.Adapter<CountryAdapter.CountryHolder>() {
+class CountryAdapter(private val onItemClick: (CountryDTO) -> Unit, private val onItemDelete: (CountryDTO) -> Unit) : RecyclerView.Adapter<CountryAdapter.CountryHolder>() {
 
     private val countriesList : MutableList<CountryDTO> = mutableListOf()
 
@@ -21,7 +22,10 @@ class CountryAdapter(private val onItemClick: (CountryDTO) -> Unit) : RecyclerVi
             .inflate(R.layout.item_rv_country, parent, false)
             .let {
                 CountryHolder(it)
+
+
             }
+
     }
 
     override fun onBindViewHolder(holder: CountryAdapter.CountryHolder, position: Int) {
@@ -42,9 +46,13 @@ class CountryAdapter(private val onItemClick: (CountryDTO) -> Unit) : RecyclerVi
             itemLayout.setOnClickListener {
                 onItemClick(country)
             }
+
+            // bouton delete
+            btnDelete.setOnClickListener {
+                onItemDelete(country)
+            }
+
         }
-
-
 
     }
 
@@ -70,6 +78,7 @@ class CountryAdapter(private val onItemClick: (CountryDTO) -> Unit) : RecyclerVi
         val tvItem: TextView = itemView.findViewById(R.id.item_tv)
         val ivItem: ImageView = itemView.findViewById(R.id.item_iv)
         val itemLayout: View = itemView.findViewById(R.id.item_rv_country)
+        val btnDelete: Button = itemView.findViewById(R.id.item_btn_delete)
     }
 
 }

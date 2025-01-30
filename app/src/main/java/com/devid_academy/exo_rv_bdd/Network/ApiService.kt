@@ -48,11 +48,9 @@ fun getRemoteCountries(onResult: (List<CountryDTO>) -> Unit) {
                 onResult(it.countries)
             }
         }
-
         override fun onFailure(call: Call<GetCountriesDTO>, t: Throwable) {
             Log.e(TAG, t?.message ?: "boo, error")
         }
-
     })
 }
 
@@ -67,17 +65,13 @@ fun getAddCountry(country: CountryDTO, onResult: (Boolean) -> Unit) {
                 onResult(true)
             }
         }
-
         override fun onFailure(call: Call<RetourDTO>, t: Throwable) {
             Log.e(TAG, t?.message ?: "boo, error")
         }
-
     })
 }
 
 fun getEditCountry(country: CountryDTO, onResult: (Boolean) -> Unit) {
-    val countryName = country.nom
-    val countryFlag = country.url
 
     val call: Call<RetourDTO>? = ApiService.getApi().updateCountry(UpdateCountryDTO(
         id = country.id,
@@ -90,10 +84,22 @@ fun getEditCountry(country: CountryDTO, onResult: (Boolean) -> Unit) {
                 onResult(true)
             }
         }
-
         override fun onFailure(call: Call<RetourDTO>, t: Throwable) {
             Log.e(TAG, t?.message ?: "boo, error")
         }
+    })
+}
 
+fun deleteCountry(countryId: Long, onResult: (Boolean) -> Unit) {
+    val call: Call<RetourDTO>? = ApiService.getApi().deleteCountry(countryId)
+    call?.enqueue(object : Callback<RetourDTO> {
+        override fun onResponse(call: Call<RetourDTO>, response: Response<RetourDTO>) {
+            response.body()?.let {
+                onResult(true)
+            }
+        }
+        override fun onFailure(call: Call<RetourDTO>, t: Throwable) {
+            Log.e(TAG, t?.message ?: "boo, error")
+        }
     })
 }

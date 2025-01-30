@@ -8,5 +8,4 @@ object ApiRoutes {
     const val GET_COUNTRY = "get_country.php"
     const val UPDATE_COUNTRY = "update_country.php"
     const val DELETE_COUNTRY = "delete_country.php"
-
 }

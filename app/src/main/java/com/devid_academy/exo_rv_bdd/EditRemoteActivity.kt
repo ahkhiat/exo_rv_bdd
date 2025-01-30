@@ -47,8 +47,5 @@ class EditRemoteActivity : AppCompatActivity() {
                 Toast.makeText(this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show()
             }
         }
-
-
-
     }
 }

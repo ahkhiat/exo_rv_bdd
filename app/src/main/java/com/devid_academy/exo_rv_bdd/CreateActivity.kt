@@ -36,10 +36,6 @@ class CreateActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show()
             }
-
         }
-
-
-
     }
 }
