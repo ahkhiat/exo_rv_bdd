@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Exo_RV_BDD</string>
+    <!--  Recycler View Activity  -->
+    <string name="rva_btn_add_country">Ajout pays</string>
+
+    <!--  Create Activity   -->
+    <string name="create_title">Créer pays</string>
+    <string name="create_input_country_name">Nom du pays</string>
+    <string name="create_input_url">Url du drapeau</string>
+    <string name="create_btn_validate">Valider</string>
+
+    <!--  Edit Activity  -->
+    <string name="edit_title">Editer pays</string>
+
+    <string name="edit_btn_validate">Modifier</string>
+
+
+</resources>
