@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.devid_academy.exo_rv_bdd.DTO.CountryDTO
+import com.devid_academy.exo_rv_bdd.Network.MY_ID_STAGIAIRE
 import com.devid_academy.exo_rv_bdd.Network.getAddCountry
 import com.devid_academy.exo_rv_bdd.Network.getEditCountry
 
@@ -34,7 +35,7 @@ class EditRemoteActivity : AppCompatActivity() {
             val country = intent.getParcelableExtra<CountryDTO>("country")
 
             if(countryName.isNotEmpty() && countryFlag.isNotEmpty()) {
-                val updatedCountry = CountryDTO(country!!.id, 10, countryName, countryFlag)
+                val updatedCountry = CountryDTO(country!!.id, MY_ID_STAGIAIRE, countryName, countryFlag)
                 getEditCountry(updatedCountry) { isSuccess ->
                     if (isSuccess) {
                         setResult(RESULT_OK)

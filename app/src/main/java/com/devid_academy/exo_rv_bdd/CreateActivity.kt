@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.devid_academy.exo_rv_bdd.DTO.CountryDTO
+import com.devid_academy.exo_rv_bdd.Network.MY_ID_STAGIAIRE
 import com.devid_academy.exo_rv_bdd.Network.getAddCountry
 
 class CreateActivity : AppCompatActivity() {
@@ -24,7 +25,7 @@ class CreateActivity : AppCompatActivity() {
             val countryFlag = etCountryUrlFlag.text.toString().trim()
 
             if(countryName.isNotEmpty() && countryFlag.isNotEmpty()) {
-                val country = CountryDTO(0, 10, countryName, countryFlag)
+                val country = CountryDTO(0, MY_ID_STAGIAIRE, countryName, countryFlag)
                 getAddCountry(country) { isSuccess ->
                     if (isSuccess) {
                         setResult(RESULT_OK)

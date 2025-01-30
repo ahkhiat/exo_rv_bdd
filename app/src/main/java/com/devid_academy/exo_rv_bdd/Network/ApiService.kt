@@ -40,8 +40,10 @@ object ApiService {
     fun getApi() = getClient().create(ApiInterface::class.java)
 }
 
+const val MY_ID_STAGIAIRE = 10L
+
 fun getRemoteCountries(onResult: (List<CountryDTO>) -> Unit) {
-    val call: Call<GetCountriesDTO>? = ApiService.getApi().getAllCountry(10)
+    val call: Call<GetCountriesDTO>? = ApiService.getApi().getAllCountry(MY_ID_STAGIAIRE)
     call?.enqueue(object : Callback<GetCountriesDTO> {
         override fun onResponse(call: Call<GetCountriesDTO>, response: Response<GetCountriesDTO>) {
             response.body()?.let {
@@ -58,7 +60,7 @@ fun getAddCountry(country: CountryDTO, onResult: (Boolean) -> Unit) {
     val countryName = country.nom
     val countryFlag = country.url
 
-    val call: Call<RetourDTO>? = ApiService.getApi().insertCountry(countryName, countryFlag, 10)
+    val call: Call<RetourDTO>? = ApiService.getApi().insertCountry(countryName, countryFlag, MY_ID_STAGIAIRE)
     call?.enqueue(object : Callback<RetourDTO> {
         override fun onResponse(call: Call<RetourDTO>, response: Response<RetourDTO>) {
             response.body()?.let {
